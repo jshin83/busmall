@@ -2,11 +2,14 @@
 
 #images {
   text-align: center;
+  display: inline-block;
+  margin: 0 auto;
 }
 
 #images img {
   float: left;
   margin-left: 30px;
+  width: 250px;
 }
 
 .data {
@@ -22,7 +25,7 @@ p {
   width: 80%;
   font-size: 18px;
   text-align: left;
-  margin: 0 auto;
+  margin: 30px auto;
 }
 
 
@@ -73,7 +76,9 @@ footer {
 }
 
 nav {
-  text-align: center;
+  background-color: navy;
+  color: whitesmoke;
+  font-size: 16px;
 }
 
 nav img {
