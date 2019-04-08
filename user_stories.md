@@ -1,4 +1,5 @@
-##User Stories
+# User Stories
+
 **User**
 + As a user, I want a webpage that displays three pictures in a row nicely, so that it will be pleasant to look at.
 + As a user, I want simple directins, so I will know what to do.
@@ -11,6 +12,7 @@
 + As a developer, I want to validate my image paths, so three different pictures appear after each click.
 + As a developer, I want the page to keep track of the number of clicks, so it could prevent the user from clicking more than 25 times.
 + As a developer, I want the product image object to keep track of the percentage of times the item was click when shown, so marketing team could user the numbers for analysis.
++ As a developer, I want three images non-duplicated images to show after one another, so the user is presented with different choices one after another.
 
 **Marketing**
 + As a marketing analysis team member, I want the number of times an item was clicked, so I could see which product to potentially include in catalogs.

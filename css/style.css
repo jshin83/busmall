@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script|Noto+Sans|Roboto+Slab');
+
+#images {
+  text-align: center;
+}
+
+#images img {
+  float: left;
+  margin-left: 30px;
+}
+
+.data {
+  font-family: Arial, Helvetica, Verdana;
+  color: rgb(60, 8, 102);
+  font-size: 18px;
+}
+
+p {
+  color: darkblue;
+  font-display: Georgia, Times;
+  padding: 5px;
+  width: 80%;
+  font-size: 18px;
+  text-align: left;
+  margin: 0 auto;
+}
+
+
+body {
+  display: block;
+  margin: 85px auto 0 auto;
+  background-color: aliceblue;
+  text-align: center;
+}
+
+fieldset {
+  margin: 20px 50px;
+  border: 1px solid navy;
+  padding: 25px;
+}
+
+h1 {
+  font-family: 'Germania One', cursive;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-family: 'Dancing Script', cursive;
+}
+
+h3 {
+  font-style: italic;
+}
+
+ul, h3, div {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 16px;
+  color: rgb(17, 4, 34);
+}
+
+table, th, td {
+  border: 1px dashed black;
+  margin: 25px auto;
+}
+
+th, td {
+  padding: 5px 7px;
+}
+
+footer {
+  font-family: 'Cedarville Cursive', cursive;
+}
+
+nav {
+  text-align: center;
+}
+
+nav img {
+  width: 20%;
+  border-radius: 5px;
+}
+
+li {
+  list-style-type: none;
+  margin: 0 40%;
+}
+
+main {
+  display: block;
+  margin: 0 auto;
+}
+
+footer {
+  background-color: rgb(12, 12, 41);
+  color: rgb(165, 226, 228);
+  text-align: center;
+  padding: 40px;
+}
