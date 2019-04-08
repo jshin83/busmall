@@ -3,19 +3,21 @@
 //global variables
 var allProducts = [];
 var threeImages = ['', '', ''];
-var tempImage = '';
 var divWithImages = document.getElementById('images');
 var pic1 = document.getElementById('pic1');
 var pic2 = document.getElementById('pic2');
 var pic3 = document.getElementById('pic3');
+var clickLimit = 24;
 
 function ProductPic(name) {
   this.filepath = `images/${name}.jpg`;
   this.name = name;
   this.views = 0;
+  this.clicks = 0;
   allProducts.push(this);
 }
 
+//instantiate objects
 new ProductPic('bag');
 new ProductPic('banana');
 new ProductPic('bathroom');
@@ -38,43 +40,23 @@ new ProductPic('water-can');
 new ProductPic('wine-glass');
 
 function showRandomPic(pic) {
-  var random = Math.floor(Math.random() * allProducts.length);
-
-  /*while (threeImages.includes(allProducts[random].name) === true && (pic1.alt === allProducts[random].name || pic2.alt === allProducts[random].name || pic3.alt === allProducts[random].name)) {*/
-  while (pic1.alt === allProducts[random].name || pic2.alt === allProducts[random].name || pic3.alt === allProducts[random].name) {
-    random = Math.floor(Math.random() * allProducts.length);
+  var random = getRandom();
+  console.log('three images include: ' + threeImages);
+  console.log(threeImages.includes(allProducts[random].name));
+  //prevents duplicates from previous or what changes on the page
+  while (threeImages.includes(allProducts[random].name) === true || pic1.alt === allProducts[random].name || pic2.alt === allProducts[random].name || pic3.alt === allProducts[random].name) {
+    random = getRandom();
     console.log('duplicate!');
   }
   allProducts[random].views += 1;
   pic.src = allProducts[random].filepath;
   pic.alt = allProducts[random].name;
-  pic.title = allProducts[random].title;
+  pic.title = allProducts[random].name;
   return pic;
-  //event.preventDefault();
-  //check with three images
-  /*var random = Math.floor(Math.random() * allProducts.length);
-  console.log(random);
-  for (let i = 0; i < threeImages.length;i ++) {
-    let pic = 'pic' + (i + 1);
-    while (pic1.alt === allProducts[random].name || pic2.alt === allProducts[random].name || pic3.alt === allProducts[random].name) {
-      random = Math.floor(Math.random() * allProducts.length);
-      console.log('duplicate!');
-    }
-    allProducts[random].views += 1;
-    [pic]['src'] = allProducts[random].filepath;
-    [pic]['alt'] = allProducts[random].name;
-    [pic]['title'] = allProducts[random].title;
-  }
-  */
+}
 
-  /*for (let i = 0; i < 3; i++) {
-    while(threeImages.includes(tempImage) && tempImage === pic1.alt || threeImages.includes(tempImage) && tempImage === pic2.alt || threeImages.includes(tempImage) && tempImage === pic3.alt) {
-      random = Math.floor(Math.random() * allProducts.length);
-      tempImage = allProducts[random].name;
-    }
-    threeImages[i] = tempImage;
-    ['pic' + (i + 1)].alt = tempImage;
-  }*/
+function getRandom() {
+  return Math.floor(Math.random() * allProducts.length);
 }
 
 function getThreeImages() {
@@ -85,6 +67,28 @@ function getThreeImages() {
 }
 
 getThreeImages();
-/*function getFileName(fullFileName) {
-  return fullFileName.substring(7, fullFileName.length - 4);
-}*/
+
+
+//click handler - calls helper functions, but removes handler when limit reached
+function handleClick(event) {
+  if (clickLimit === 0) {
+    divWithImages.removeEventListener('click', handleClick);
+  }
+  //pass the element clicked and update click
+  updateClickCount(event.target.alt);
+  getThreeImages();
+  clickLimit--;
+}
+
+//helper function - update click count for one of three image clicked
+function updateClickCount(name) {
+  console.log(name + ' in update click');
+  for (let i = 0; i < allProducts.length; i++) {
+    if (allProducts[i].name === name) {
+      allProducts[i].clicks += 1;
+    }
+  }
+}
+//add event listener
+divWithImages.addEventListener('click', handleClick);
+
