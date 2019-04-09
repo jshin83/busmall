@@ -4,12 +4,24 @@
   text-align: center;
   display: inline-block;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 #images img {
   float: left;
   margin-left: 30px;
-  height: 200px;
+  height: 275px;
+  margin-bottom: 30px;
+}
+
+.chartjs-size-monitor {
+  position: relative;
+}
+
+.chart-container {
+  display: block;
+  margin: 50px auto;
+  overflow: hidden;
 }
 
 p {
@@ -27,6 +39,7 @@ body {
   margin: 85px auto 0 auto;
   background-color: aliceblue;
   text-align: center;
+  height: 100%;
 }
 
 h1 {
@@ -45,23 +58,27 @@ h3 {
 
 ul, h3, div {
   font-family: 'PT Sans', sans-serif;
-  font-size: 16px;
+  font-size: 20px;
   color: rgb(17, 4, 34);
 }
 
 li {
   list-style-type: none;
-  margin: 0 40%;
 }
 
 main {
   display: block;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 ul {
   text-align: left;
-  margin: 60px 0;
+  margin-top: 60px;
+}
+
+canvas {
+  width: 80%;
 }
 
 footer {

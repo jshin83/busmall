@@ -8,6 +8,10 @@ var pic1 = document.getElementById('pic1');
 var pic2 = document.getElementById('pic2');
 var pic3 = document.getElementById('pic3');
 var clickLimit;
+var canvas;
+//arrays to hold data for charts
+var titles = [];
+var votes = [];
 
 function ProductPic(name) {
   this.filepath = `images/${name}.jpg`;
@@ -41,21 +45,18 @@ new ProductPic('wine-glass');
 
 function showRandomPic(pic) {
   var random = getRandom();
-  console.log('three images include: ' + threeImages);
-  console.log(threeImages.includes(allProducts[random].name));
   //prevents duplicates from previous or what changes on the page
   while (threeImages.includes(allProducts[random].name) === true || pic1.alt === allProducts[random].name || pic2.alt === allProducts[random].name || pic3.alt === allProducts[random].name) {
     random = getRandom();
-    console.log('duplicate!');
   }
   allProducts[random].views += 1;
   pic.src = allProducts[random].filepath;
   pic.alt = allProducts[random].name;
   pic.title = `${allProducts[random].name}, ${random}`;
-  console.log(pic.title + ' in the pic title, number should be index!');
   return pic;
 }
 
+//helper function to generate random number - constraint: product array length
 function getRandom() {
   return Math.floor(Math.random() * allProducts.length);
 }
@@ -75,18 +76,15 @@ function handleClick(event) {
   if (clickLimit === 0) {
     divWithImages.removeEventListener('click', handleClick);
     createClickList();
+    drawChart();
   }
   //updateClickCount(event.target.alt);
   getThreeImages();
 }
 
-
 //helper function to grab number from image title
 function updateClickCount(clickedName) {
-  console.log(clickedName + ' in update click');
-
   let index = clickedName.substring(clickedName.indexOf(' '), clickedName.length);
-  console.log('Index in update click count ' + index);
   allProducts[Number(index.trim())].clicks += 1;
 }
 
@@ -95,11 +93,79 @@ function createClickList() {
   //3 votes for the Banana Slicer
   let ul = document.createElement('ul');
   for (let i = 0; i < allProducts.length; i++) {
+    //populate data arrays for chart
+    titles[i] = allProducts[i].name;
+    votes[i] = allProducts[i].clicks;
     let li = document.createElement('li');
     li.innerText = `${allProducts[i].clicks} vote(s) for the ${allProducts[i].name}.`;
     ul.appendChild(li);
   }
-  document.body.appendChild(ul);
+  divWithImages.appendChild(ul);
+}
+//createCanvas();
+//function to create canvas
+/*function createCanvas() {
+  canvas = document.createElement('canvas');
+  canvas.height = 700;
+  canvas.width = 1200;
+  canvas.style.backgroundColor = '#ffffff';
+  //drawChart(ctx);
+  //canvas.appendChild(ctx);
+  document.body.appendChild(canvas);
+}*/
+
+function drawChart() {
+  canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
+
+  var data = {
+    labels: titles, // titles array we declared earlier
+    datasets: [{
+      label: '# of votes',
+      data: votes, // votes array we declared earlier
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)'
+      ],
+      hoverBackgroundColor: []
+    }]
+  };
+
+  var voteChart = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            /*max: 10,
+            min: 0,
+            stepSize: 1.0*/
+            beginAtZero: true,
+            stepSize: 1.0
+          }
+        }]
+      }
+    },
+  });
 }
 
 //group all functions I want at page load
