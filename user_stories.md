@@ -7,7 +7,7 @@
 + As a user, I want three different pictures to show at one time, so I won't be confused by duplicate images.
 
 **Developer**
-+ As a developer, I want the three pages centered in a div, so the user has a pleasant viewing experiece.
++ As a developer, I want the three images centered in a div, so the user has a pleasant viewing experiece.
 + As a developer, I want the images to retain how many times they were clicked, so marketing could use the numbers for analysis.
 + As a developer, I want to validate my image paths, so three different pictures appear after each click.
 + As a developer, I want the page to keep track of the number of clicks, so it could prevent the user from clicking more than 25 times.
