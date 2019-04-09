@@ -51,7 +51,8 @@ function showRandomPic(pic) {
   allProducts[random].views += 1;
   pic.src = allProducts[random].filepath;
   pic.alt = allProducts[random].name;
-  pic.title = allProducts[random].name;
+  pic.title = `${allProducts[random].name}, ${random}`;
+  console.log(pic.title + ' in the pic title, number should be index!');
   return pic;
 }
 
@@ -65,9 +66,6 @@ function getThreeImages() {
   showRandomPic(pic3);
   threeImages = [pic1.alt, pic2.alt, pic3.alt];
 }
-
-getThreeImages();
-
 
 //click handler - calls helper functions, but removes handler when limit reached
 function handleClick(event) {
@@ -105,6 +103,7 @@ function createClickList() {
 
 function startPage() {
   clickLimit = 24;
+  getThreeImages();
   //add event listener
   divWithImages.addEventListener('click', handleClick);
 }
