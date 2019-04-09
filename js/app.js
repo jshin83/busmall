@@ -74,20 +74,31 @@ function handleClick(event) {
     createClickList();
   }
   //pass the element clicked and update click
-  updateClickCount(event.target.alt);
+  updateClickCount(event.target.title);
+  //updateClickCount(event.target.alt);
   getThreeImages();
   clickLimit -= 1;
 }
 
-//helper function - update click count for one of three image clicked
+
+//helper function to grab number from image title
 function updateClickCount(clickedName) {
+  console.log(clickedName + ' in update click');
+
+  let index = clickedName.substring(clickedName.indexOf(' '), clickedName.length);
+  console.log('Index in update click count ' + index);
+  allProducts[Number(index.trim())].clicks += 1;
+}
+
+//helper function - update click count for one of three image clicked
+/*function updateClickCount(clickedName) {
   console.log(clickedName + ' in update click');
   for (let i = 0; i < allProducts.length; i++) {
     if (allProducts[i].name === clickedName) {
       allProducts[i].clicks += 1;
     }
   }
-}
+}*/
 
 //function to create list of clicks
 function createClickList() {
@@ -101,6 +112,7 @@ function createClickList() {
   document.body.appendChild(ul);
 }
 
+//group all functions I want at page load
 function startPage() {
   clickLimit = 24;
   getThreeImages();
