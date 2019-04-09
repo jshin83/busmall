@@ -90,16 +90,6 @@ function updateClickCount(clickedName) {
   allProducts[Number(index.trim())].clicks += 1;
 }
 
-//helper function - update click count for one of three image clicked
-/*function updateClickCount(clickedName) {
-  console.log(clickedName + ' in update click');
-  for (let i = 0; i < allProducts.length; i++) {
-    if (allProducts[i].name === clickedName) {
-      allProducts[i].clicks += 1;
-    }
-  }
-}*/
-
 //function to create list of clicks
 function createClickList() {
   //3 votes for the Banana Slicer
