@@ -7,7 +7,7 @@ var divWithImages = document.getElementById('images');
 var pic1 = document.getElementById('pic1');
 var pic2 = document.getElementById('pic2');
 var pic3 = document.getElementById('pic3');
-var clickLimit = 24;
+var clickLimit;
 
 function ProductPic(name) {
   this.filepath = `images/${name}.jpg`;
@@ -73,22 +73,40 @@ getThreeImages();
 function handleClick(event) {
   if (clickLimit === 0) {
     divWithImages.removeEventListener('click', handleClick);
+    createClickList();
   }
   //pass the element clicked and update click
   updateClickCount(event.target.alt);
   getThreeImages();
-  clickLimit--;
+  clickLimit -= 1;
 }
 
 //helper function - update click count for one of three image clicked
-function updateClickCount(name) {
-  console.log(name + ' in update click');
+function updateClickCount(clickedName) {
+  console.log(clickedName + ' in update click');
   for (let i = 0; i < allProducts.length; i++) {
-    if (allProducts[i].name === name) {
+    if (allProducts[i].name === clickedName) {
       allProducts[i].clicks += 1;
     }
   }
 }
-//add event listener
-divWithImages.addEventListener('click', handleClick);
 
+//function to create list of clicks
+function createClickList() {
+  //3 votes for the Banana Slicer
+  let ul = document.createElement('ul');
+  for (let i = 0; i < allProducts.length; i++) {
+    let li = document.createElement('li');
+    li.innerText = `${allProducts[i].clicks} vote(s) for the ${allProducts[i].name}.`;
+    ul.appendChild(li);
+  }
+  document.body.appendChild(ul);
+}
+
+function startPage() {
+  clickLimit = 24;
+  //add event listener
+  divWithImages.addEventListener('click', handleClick);
+}
+
+startPage();
