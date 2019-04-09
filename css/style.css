@@ -96,6 +96,11 @@ main {
   margin: 0 auto;
 }
 
+ul {
+  text-align: left;
+  margin: 60px 0;
+}
+
 footer {
   background-color: rgb(12, 12, 41);
   color: rgb(165, 226, 228);
