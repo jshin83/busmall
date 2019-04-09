@@ -69,15 +69,15 @@ function getThreeImages() {
 
 //click handler - calls helper functions, but removes handler when limit reached
 function handleClick(event) {
+  clickLimit -= 1;
+  //pass the element clicked and update click
+  updateClickCount(event.target.title);
   if (clickLimit === 0) {
     divWithImages.removeEventListener('click', handleClick);
     createClickList();
   }
-  //pass the element clicked and update click
-  updateClickCount(event.target.title);
   //updateClickCount(event.target.alt);
   getThreeImages();
-  clickLimit -= 1;
 }
 
 
@@ -114,7 +114,7 @@ function createClickList() {
 
 //group all functions I want at page load
 function startPage() {
-  clickLimit = 24;
+  clickLimit = 25;
   getThreeImages();
   //add event listener
   divWithImages.addEventListener('click', handleClick);
