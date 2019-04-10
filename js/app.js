@@ -102,17 +102,6 @@ function createClickList() {
   }
   divWithImages.appendChild(ul);
 }
-//createCanvas();
-//function to create canvas
-/*function createCanvas() {
-  canvas = document.createElement('canvas');
-  canvas.height = 700;
-  canvas.width = 1200;
-  canvas.style.backgroundColor = '#ffffff';
-  //drawChart(ctx);
-  //canvas.appendChild(ctx);
-  document.body.appendChild(canvas);
-}*/
 
 function drawChart() {
   canvas = document.getElementById('canvas');
