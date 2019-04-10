@@ -69,17 +69,23 @@ function getThreeImages() {
 }
 
 //click handler - calls helper functions, but removes handler when limit reached
-function handleClick(event) {
+function handleImageClick(event) {
   clickLimit -= 1;
   //pass the element clicked and update click
   updateClickCount(event.target.title);
   if (clickLimit === 0) {
-    divWithImages.removeEventListener('click', handleClick);
-    createClickList();
+    divWithImages.removeEventListener('click', handleImageClick);
+    logClick();
+    updateLocalStorage();
     drawChart();
   }
   //updateClickCount(event.target.alt);
   getThreeImages();
+}
+
+//helper function to store into local storage
+function updateLocalStorage() {
+  localStorage.setItem('votes', JSON.stringify(votes));
 }
 
 //helper function to grab number from image title
@@ -89,18 +95,13 @@ function updateClickCount(clickedName) {
 }
 
 //function to create list of clicks
-function createClickList() {
+function logClick() {
   //3 votes for the Banana Slicer
-  let ul = document.createElement('ul');
   for (let i = 0; i < allProducts.length; i++) {
     //populate data arrays for chart
     titles[i] = allProducts[i].name;
-    votes[i] = allProducts[i].clicks;
-    let li = document.createElement('li');
-    li.innerText = `${allProducts[i].clicks} vote(s) for the ${allProducts[i].name}.`;
-    ul.appendChild(li);
+    votes[i] += allProducts[i].clicks;
   }
-  divWithImages.appendChild(ul);
 }
 
 function drawChart() {
@@ -145,9 +146,6 @@ function drawChart() {
       scales: {
         yAxes: [{
           ticks: {
-            /*max: 10,
-            min: 0,
-            stepSize: 1.0*/
             beginAtZero: true,
             stepSize: 1.0
           }
@@ -157,12 +155,30 @@ function drawChart() {
   });
 }
 
+//helper function to instantiate vote array to 0 values
+function votesArrayToZero() {
+  votes = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+}
+
 //group all functions I want at page load
 function startPage() {
+  //check if localStorage exists, if it is populated, and if property votes don't exist
+  if (localStorage && localStorage.length > 0 && localStorage.votes) {
+    //grab localStorage, deserialize, push into chart
+    votes = JSON.parse(localStorage.votes);
+  } else {
+    //instantiate votes to hold 0
+    votesArrayToZero();
+  }
   clickLimit = 25;
   getThreeImages();
   //add event listener
-  divWithImages.addEventListener('click', handleClick);
+  divWithImages.addEventListener('click', handleImageClick);
+  document.getElementById('refresh').addEventListener('click', function() {
+    localStorage.clear();
+    votesArrayToZero();
+    drawChart();
+  });
 }
 
 startPage();
