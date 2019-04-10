@@ -69,12 +69,12 @@ function getThreeImages() {
 }
 
 //click handler - calls helper functions, but removes handler when limit reached
-function handleClick(event) {
+function handleImageClick(event) {
   clickLimit -= 1;
   //pass the element clicked and update click
   updateClickCount(event.target.title);
   if (clickLimit === 0) {
-    divWithImages.removeEventListener('click', handleClick);
+    divWithImages.removeEventListener('click', handleImageClick);
     logClick();
     updateLocalStorage();
     drawChart();
@@ -146,9 +146,6 @@ function drawChart() {
       scales: {
         yAxes: [{
           ticks: {
-            /*max: 10,
-            min: 0,
-            stepSize: 1.0*/
             beginAtZero: true,
             stepSize: 1.0
           }
@@ -156,6 +153,11 @@ function drawChart() {
       }
     },
   });
+}
+
+//helper function to instantiate vote array to 0 values
+function votesArrayToZero() {
+  votes = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
 }
 
 //group all functions I want at page load
@@ -166,12 +168,17 @@ function startPage() {
     votes = JSON.parse(localStorage.votes);
   } else {
     //instantiate votes to hold 0
-    votes = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+    votesArrayToZero();
   }
   clickLimit = 25;
   getThreeImages();
   //add event listener
-  divWithImages.addEventListener('click', handleClick);
+  divWithImages.addEventListener('click', handleImageClick);
+  document.getElementById('refresh').addEventListener('click', function() {
+    localStorage.clear();
+    votesArrayToZero();
+    drawChart();
+  });
 }
 
 startPage();
