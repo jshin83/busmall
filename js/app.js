@@ -181,4 +181,6 @@ function startPage() {
   });
 }
 
+
+//document on load
 startPage();
